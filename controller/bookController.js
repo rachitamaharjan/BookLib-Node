@@ -4,17 +4,8 @@ const express = require('express')
 
 const router = express.Router()
 const books = require('../models/bookmodel')
+const authorize = require('../middlewares/authorize')
 
-
-router.post('/check',(req, res) => {
-    const { val } = req.body
-    console.log('heyy',val)
-
-    res.json({
-        msg: 'hoohhoo',
-        val
-    })
-})
 
 router.get('/', (req, res) => {
     books.find()
@@ -42,6 +33,8 @@ router.get('/:id', (req, res) => {
     })
 })
 
+router.use(authorize)
+
 router.post('/add', (req, res) => {
     console.log('add book',req.body)
     // const { password } = req.body
@@ -54,6 +47,7 @@ router.post('/add', (req, res) => {
     }) 
 })
 
+router.use(authorize)
 router.patch('/update/:id', (req, res) => {
     const { id } = req.params;
     const changes = req.body;
@@ -72,6 +66,7 @@ router.patch('/update/:id', (req, res) => {
     }) 
 })
 
+router.use(authorize)
 router.delete('/delete/:id', (req, res) => {
     const { id } = req.params;
     books.remove(id)
