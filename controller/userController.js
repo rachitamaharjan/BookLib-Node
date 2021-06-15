@@ -69,7 +69,6 @@ router.get("/logout", (req, res) => {
 })
 
 router.use(authenticate)
-
 router.use(authorize)
 
 router.get('/', (req, res) => {
