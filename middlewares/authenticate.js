@@ -9,12 +9,15 @@ const authenticate = (req, res, next) => {
 
     if(!token){
         res.sendStatus(401)
+        console.log('not inside')
+
     }else{
+        console.log('inside')
         jwt.verify(token, secret, (err, decoded) => {
             if(err) throw err
             console.log('decoded', decoded)
-            const {role} = decoded
-            req.user = {role}
+            const {is_admin} = decoded
+            req.user = {is_admin}
             next()
         })
     }

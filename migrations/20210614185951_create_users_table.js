@@ -5,7 +5,7 @@ exports.up = function(knex) {
         table.text('username', 100).notNullable().unique().index()
         table.text('email', 200).notNullable()
         table.text('password', 200).notNullable()
-        table.boolean('is_admin').notNullable()
+        table.boolean('is_admin').notNullable().defaultTo(0)
         table.timestamps(true, true)
     })
 };
