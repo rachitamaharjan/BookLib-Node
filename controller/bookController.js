@@ -36,7 +36,7 @@ router.get('/:id', (req, res) => {
 router.use(authorize)
 
 router.post('/add', (req, res) => {
-    console.log('add book',req.body)
+    // console.log('add book',req.body)
     // const { password } = req.body
     books.add(req.body)
     .then(book => {
@@ -48,10 +48,10 @@ router.post('/add', (req, res) => {
 })
 
 router.use(authorize)
-router.patch('/update/:id', (req, res) => {
+router.patch('/:id', (req, res) => {
     const { id } = req.params;
     const changes = req.body;
-
+    // console.log('k',id)
     books.update(id, changes)
     .then(bookID => {
         if(bookID){
@@ -67,7 +67,8 @@ router.patch('/update/:id', (req, res) => {
 })
 
 router.use(authorize)
-router.delete('/delete/:id', (req, res) => {
+router.delete('/:id', (req, res) => {
+    // console.log('user',req.user)
     const { id } = req.params;
     books.remove(id)
     .then (delCount => {

@@ -37,21 +37,22 @@ router.post('/register', (req, res) => {
 })
 
 router.post('/login', (req, res) => {
-    console.log('register',req.body)
-    const {username,  password } = req.body
+    // console.log('register',req.body)
+    const {username,  password, is_admin } = req.body
     if(!(username && password)){
         return res.status(400).json({message: "One or more required fields empty"})
     }
     else{
         users.findByUsername(username)
         .then(user => {
-            console.log('user', user)
+            // console.log('user', user)
             if (user && bcrypt.compareSync(password, user.password)){
                 var token = jwt.sign(user, secret)
                 res.status(200).json({
-                    username,
-                    password,
-                    token
+                    // username,
+                    // password,
+                    token,
+                    is_admin: user.is_admin
                 })
             }
             else{

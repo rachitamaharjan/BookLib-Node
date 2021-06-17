@@ -4,60 +4,57 @@ var express = require('express');
 const app = express()
 const http = require('http')
 const router = require('./router')
+var cors = require('cors')
+const httpStatus = require('http-status-codes');
+
+
+app.use(cors())
 
 app.use(express.json())
 // app.use(express.urlencoded({extended: true}))
 
 app.use('/api', router)
 
+app.use((err, req, res, next) => {
+    res.status(500).json({error: err.message})
+})
 
-// app.use('/api', (req, res) => {
-//     res.json({
-//         msg: 'h'
-//     })
-// })
+app.use((err, req, res, next) => {
+    res.status(httpStatus.NOT_FOUND).json({
+        error: {
+            code: HttpStatus.NOT_FOUND,
+            message: HttpStatus.getStatusText(HttpStatus.NOT_FOUND)
+        }
+    })
+})
 
-// router.get('/ok',(req, res) => {
-//     res.json({
-//         msg: 'hoooo'
-//     })
-//     console.log('heyy')
-// })
-// app.use((req, res, next) => {
-//     console.log('index next')
-//     next()
-// })
+app.use((err, req, res, next) => {
+    res.status(httpStatus.METHOD_NOT_ALLOWED).json({
+        error: {
+            code: HttpStatus.METHOD_NOT_ALLOWED,
+            message: HttpStatus.getStatusText(HttpStatus.METHOD_NOT_ALLOWED)
+        }
+    })
+})
+
+app.use((err, req, res, next) => {
+    res.status(err.status).json({
+        error: {
+            code: err.status,
+            message: HttpStatus.getStatusText(err.status)
+        }
+    })
+})
+
+app.use((err, req, res, next) => {
+    const error = buildError(err);
+    res.status(error.code).json({ error });
+})
+
+
 
 app.listen(3000, () => {
     console.log('Server Starting at Port 3000')
 })
 
-
-// filename1 = "lf.txt"
-// filename2 = "mood.txt"
-
-// fs.appendFile(filename1, 'Leapfrog!', function (err) {
-//     if (err) throw err;
-//     console.log(`Updated ${filename2}!`);
-// });
-
-// fs.writeFile(filename2, 'Happy, Calm, Mixed, Confused, Supercalifragilisticexpialidocious', function (err) {
-//     if (err) throw err;
-//     console.log(`Written on ${filename2}!`);
-// });
-
-// fs.readFile(filename1, function (err, data) {
-//     if (err) throw err;
-//     console.log(`Inside ${filename1}: ${data}`);
-// });
-
-// fs.readFile(filename2, function (err, data) {
-//     if (err) throw err;
-//     console.log(`Inside ${filename2}: ${data}`);
-// });
-
-// fs.unlink(filename1, function (err) {
-//     if (err) throw err;
-//     console.log(`Deleted ${filename1}`);
-//   });
 
