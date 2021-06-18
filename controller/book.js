@@ -36,8 +36,6 @@ router.get('/:id', (req, res) => {
 router.use(authorize)
 
 router.post('/add', (req, res) => {
-    // console.log('add book',req.body)
-    // const { password } = req.body
     books.add(req.body)
     .then(book => {
         res.status(200).json(book)
@@ -51,7 +49,6 @@ router.use(authorize)
 router.patch('/:id', (req, res) => {
     const { id } = req.params;
     const changes = req.body;
-    // console.log('k',id)
     books.update(id, changes)
     .then(bookID => {
         if(bookID){
