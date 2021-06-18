@@ -3,7 +3,7 @@ const express = require('express')
 
 
 const router = express.Router()
-const books = require('../models/bookmodel')
+const books = require('../models/book')
 const authorize = require('../middlewares/authorize')
 
 

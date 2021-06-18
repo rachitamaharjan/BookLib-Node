@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken')
 const {secret} = require('../config')
+// const user_id = null
 
 const authenticate = (req, res, next) => {
     let token
@@ -22,6 +23,7 @@ const authenticate = (req, res, next) => {
             // console.log('decoded', decoded)
             const {is_admin, id} = decoded
             req.user = {is_admin, id}
+            user_id = req.user.id                      
             next()
         })
     }

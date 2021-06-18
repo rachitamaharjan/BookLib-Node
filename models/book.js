@@ -6,11 +6,11 @@ const db = require('../dbConfig')
 
 async function add(book){
    const [id] = await db('books').insert(book)
-   // console.log('book details', book)
+   console.log('book details', book)
    return book
 }
 
-function find(book){
+function find(){
    return db("books")
 }
 

@@ -6,7 +6,7 @@ var {secret} = require('../config')
 
 const router = express.Router()
 // const books = require('../models/bookmodel')
-const users = require('../models/usermodel')
+const users = require('../models/user')
 const authorize = require('../middlewares/authorize');
 const authenticate = require('../middlewares/authenticate');
 
