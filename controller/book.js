@@ -1,6 +1,4 @@
 const express = require('express')
-// const app = express()
-
 
 const router = express.Router()
 const books = require('../models/book')
@@ -65,7 +63,6 @@ router.patch('/:id', (req, res) => {
 
 router.use(authorize)
 router.delete('/:id', (req, res) => {
-    // console.log('user',req.user)
     const { id } = req.params;
     books.remove(id)
     .then (delCount => {

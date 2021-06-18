@@ -1,11 +1,9 @@
 const express = require('express')
-// const app = express()
 var jwt = require('jsonwebtoken')
 var bcrypt = require('bcryptjs');
 var {secret} = require('../config')
 
 const router = express.Router()
-// const books = require('../models/bookmodel')
 const users = require('../models/user')
 const authorize = require('../middlewares/authorize');
 const authenticate = require('../middlewares/authenticate');
@@ -37,7 +35,6 @@ router.post('/register', (req, res) => {
 })
 
 router.post('/login', (req, res) => {
-    // console.log('register',req.body)
     const {username,  password, is_admin } = req.body
     if(!(username && password)){
         return res.status(400).json({message: "One or more required fields empty"})
@@ -45,12 +42,9 @@ router.post('/login', (req, res) => {
     else{
         users.findByUsername(username)
         .then(user => {
-            // console.log('user', user)
             if (user && bcrypt.compareSync(password, user.password)){
                 var token = jwt.sign(user, secret)
                 res.status(200).json({
-                    // username,
-                    // password,
                     token,
                     is_admin: user.is_admin
                 })
@@ -82,8 +76,6 @@ router.get('/', (req, res) => {
     })
 })
 
-// router.use(authenticate)
-// router.use(authorize)
 
 router.get('/:username', (req, res) => {
     const {username} = req.params

@@ -6,18 +6,11 @@ const db = require('../dbConfig')
 
 async function add(user){
    return await db('users').insert(user, ['id', 'username'])
-   // const [id] = await db('users').insert(user)
-   // console.log('ok')
-   // return id
 }
 
 function find(user){
    return db("users")
 }
-
-// function findByID(id){
-//    return db("users").where({ id }).first()
-// }
 
 function findByUsername(username){
    return db("users").where({ username }).first()

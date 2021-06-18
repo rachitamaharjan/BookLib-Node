@@ -10,7 +10,6 @@ async function add(favorite){
 }
 
 async function find(user_id){
-   // return db("favorites").where({ user_id })
    console.log('user id', user_id)
    const res = await db('favorites')
   .leftJoin('books', 'books.id', 'favorites.book_id')

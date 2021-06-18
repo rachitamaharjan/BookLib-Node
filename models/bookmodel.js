@@ -1,12 +1,9 @@
-// const knex = require('knex')
-// const config = require('../knexfile')
-// const db = knex(config.development)
+
 const db = require('../dbConfig')
 
 
 async function add(book){
    const [id] = await db('books').insert(book)
-   // console.log('book details', book)
    return book
 }
 
